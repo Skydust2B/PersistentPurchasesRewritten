@@ -7,6 +7,8 @@
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>latest</LangVersion>
         <RootNamespace>PersistentPurchasesRewritten</RootNamespace>
+		<LethalCompanyData>F:\Program Files (x86)\Steam\steamapps\common\Lethal Company\Lethal Company_Data\Managed\</LethalCompanyData>
+		<LethalCompanyDataWSL>/mnt/f/Program Files (x86)/Steam/steamapps/common/Lethal Company/Lethal Company_Data/Managed/</LethalCompanyDataWSL>
     </PropertyGroup>
 
     <ItemGroup>
@@ -20,16 +22,25 @@
         <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Reference Include="Assembly-CSharp">
-        <HintPath>F:\Program Files (x86)\Steam\steamapps\common\Lethal Company\Lethal Company_Data\Managed\Assembly-CSharp.dll</HintPath>
-      </Reference>
-      <Reference Include="Unity.Netcode.Runtime">
-        <HintPath>F:\Program Files (x86)\Steam\steamapps\common\Lethal Company\Lethal Company_Data\Managed\Unity.Netcode.Runtime.dll</HintPath>
-      </Reference>
-    </ItemGroup>
+	<ItemGroup>
+		<!-- Reference for Windows -->
+		<Reference Include="Assembly-CSharp" Condition="Exists('$(LethalCompanyData)Assembly-CSharp.dll')">
+			<HintPath>$(LethalCompanyData)Assembly-CSharp.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Netcode.Runtime" Condition="Exists('$(LethalCompanyData)Unity.Netcode.Runtime.dll')">
+			<HintPath>$(LethalCompanyData)Unity.Netcode.Runtime.dll</HintPath>
+		</Reference>
 
-    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<!-- Reference for WSL -->
+		<Reference Include="Assembly-CSharp" Condition="Exists('$(LethalCompanyDataWSL)Assembly-CSharp.dll')">
+			<HintPath>$(LethalCompanyDataWSL)Assembly-CSharp.dll</HintPath>
+		</Reference>
+		<Reference Include="Unity.Netcode.Runtime" Condition="Exists('$(LethalCompanyDataWSL)Unity.Netcode.Runtime.dll')">
+			<HintPath>$(LethalCompanyDataWSL)Unity.Netcode.Runtime.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' == 'Debug'">
       <Exec Command="xcopy /y &quot;.\bin\Debug\netstandard2.1\PersistentPurchasesRewritten.dll&quot; &quot;F:\Program Files (x86)\Steam\steamapps\common\Lethal Company\BepInEx\plugins&quot;" />
     </Target>
 </Project>

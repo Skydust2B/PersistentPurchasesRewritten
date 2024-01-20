@@ -2,6 +2,7 @@ PersistentPurchasesRewritten/bin/*
 PersistentPurchasesRewritten/obj/*
 Thunderstore/plugins/*
 Thunderstore/*.zip
+Thunderstore/*.dll
 
 # This .gitignore file should be placed at the root of your Unity project directory
 #
@@ -75,3 +76,4 @@ crashlytics-build.properties
 
 .idea
 debug.log
+/*.zip
