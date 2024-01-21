@@ -51,7 +51,11 @@ public class Patches
         {
             Plugin.log.LogInfo($"Restoring item { unlockedItem.Key } { unlockedItem.Value.unlockableName }");
             __instance.BuyShipUnlockableServerRpc(unlockedItem.Key, TimeOfDay.Instance.quotaVariables.startingCredits);
-            if (unlockedItem.Value.unlockableType == (int)UnlockableTypes.Furniture && __instance.SpawnedShipUnlockables.ContainsKey(unlockedItem.Key))
+
+            if (unlockedItem.Value.unlockableType != (int)UnlockableTypes.Furniture)
+                continue;
+
+            if (__instance.SpawnedShipUnlockables.ContainsKey(unlockedItem.Key))
             {
                 NetworkObject networkObject = __instance.SpawnedShipUnlockables.Get(unlockedItem.Key).GetComponent<NetworkObject>();
                 if (networkObject != null)

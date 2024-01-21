@@ -8,14 +8,15 @@ public class SavedUnlockables
 
     public static UnlockableItem CopyUnlockable(UnlockableItem unlockableItem)
     {
-        UnlockableItem savedUnlockable = new();
-        savedUnlockable.unlockableName = unlockableItem.unlockableName;
-        savedUnlockable.placedPosition = unlockableItem.placedPosition;
-        savedUnlockable.placedRotation = unlockableItem.placedRotation;
-        savedUnlockable.IsPlaceable = unlockableItem.IsPlaceable;
-        savedUnlockable.inStorage = unlockableItem.inStorage;
-        savedUnlockable.unlockableType = unlockableItem.unlockableType;
-        return savedUnlockable;
+        return new UnlockableItem
+        {
+            unlockableName = unlockableItem.unlockableName,
+            placedPosition = unlockableItem.placedPosition,
+            placedRotation = unlockableItem.placedRotation,
+            IsPlaceable = unlockableItem.IsPlaceable,
+            inStorage = unlockableItem.inStorage,
+            unlockableType = unlockableItem.unlockableType
+        };
     }
 }
 
